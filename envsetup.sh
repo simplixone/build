@@ -137,8 +137,9 @@ function check_product()
         echo "Couldn't locate the top of the tree.  Try setting TOP." >&2
         return
     fi
-    if (echo -n $1 | grep -q -e "^aosp_") ; then
-        CUSTOM_BUILD=$(echo -n $1 | sed -e 's/^aosp_//g')
+    if (echo -n $1 | grep -q -e "^simplix_") ; then
+        CUSTOM_BUILD=$(echo -n $1 | sed -e 's/^simplix_//g')
+        export BUILD_NUMBER=$( (date +%s%N ; echo $CUSTOM_BUILD; hostname) | openssl sha1 | sed -e 's/.*=//g; s/ //g' | cut -c1-10 )
     else
         CUSTOM_BUILD=
     fi
@@ -633,7 +634,7 @@ function lunch()
     check_product $product
     if [ $? -ne 0 ]
     then
-        # if we can't find a product, try to grab it
+        # if we can't find a product, try to grab it off the simplixone-devices GitHub
         T=$(gettop)
         cd $T > /dev/null
         vendor/aosp/build/tools/roomservice.py $product

@@ -20,7 +20,11 @@
 PRODUCT_PACKAGES := \
     Bluetooth \
     BluetoothMidiService \
+    Calendar \
     Camera2 \
+    DeskClock \
+    Email \
+    ExactCalculator \
     Gallery2 \
     Music \
     MusicFX \
